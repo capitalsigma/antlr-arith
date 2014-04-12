@@ -2,7 +2,7 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 
-public class ArithmeticTreePrinter {
+public class ArithmeticInterpreter {
 	public static void main(String[] args) throws Exception {
 
 		for(String path : args){
