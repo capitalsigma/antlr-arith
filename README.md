@@ -1,4 +1,4 @@
-antlr-arith
-===========
+antr-bfc
+========
 
-An arithmetic expression compiler implemented with antlr.
+A brainfuck compiler implemented with antlr4. 
