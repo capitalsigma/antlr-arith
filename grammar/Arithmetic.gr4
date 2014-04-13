@@ -25,5 +25,5 @@ output : 'print: ' ID;
 //     | output
 //     ;
 
-program : (assignment | output ';')+
+program : ((assignment | output) ';')+
     ;

@@ -18,6 +18,14 @@ public class ArithmeticInterpreter {
 
 			ParseTree tree = parser.program(); // begin parsing at init rule
 			System.out.println(tree.toStringTree(parser)); // print LISP-style tree
+
+			System.out.println("Interpreted output: ");
+
+			EvalVisitor eval = new EvalVisitor();
+
+			eval.visit(tree);
+
+
 			System.out.println("-------------------------------------");
 		}
 	}

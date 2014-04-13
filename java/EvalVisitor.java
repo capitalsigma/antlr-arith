@@ -2,22 +2,25 @@ import java.util.HashMap;
 import java.util.Map;
 import org.antlr.v4.runtime.misc.NotNull;
 // import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import org.antlr.v4.runtime.tree.*;
 
-public class EvalVisitor implements ArithmeticVisitor<Integer> {
+public class EvalVisitor extends ArithmeticBaseVisitor<Integer> {
 	Map<String, Integer> memory = new HashMap<String, Integer>();
 
 	public Integer visitAssignment(@NotNull ArithmeticParser.AssignmentContext ctx) {
 		String id = ctx.ID().getText();
-		int value = visit(ctx.exp());
+		int value = ctx.exp().accept(this);
 		memory.put(id, value);
 
 		return value;
 	}
 
-	public Integer visitProgram(@NotNull ArithmeticParser.ProgramContext ctx){
+	// public Integer visitProgram(@NotNull ArithmeticParser.ProgramContext ctx){
+	// 	// for (ArithmeticParser.ProgramContext context :
+	// 	System.out.println("Visiting a program.");
+	// 	return 0;
+	// }
 
-
-	}
 
 	public Integer visitIdExp(@NotNull ArithmeticParser.IdExpContext ctx){
 		String id = ctx.ID().getText();
@@ -38,12 +41,12 @@ public class EvalVisitor implements ArithmeticVisitor<Integer> {
 		} else {
 			System.out.println("Undefined variable: " + id);
 		}
-
+		return 0;
 	}
 
 	public Integer visitArithExp(@NotNull ArithmeticParser.ArithExpContext ctx) {
-		Integer left = visit(ctx.exp(0));
-		Integer right = visit(ctx.exp(1));
+		Integer left = ctx.exp(0).accept(this);
+		Integer right = ctx.exp(1).accept(this);
 
 		switch (ctx.op.getType()) {
 		case ArithmeticParser.ADD:
@@ -67,5 +70,23 @@ public class EvalVisitor implements ArithmeticVisitor<Integer> {
 
 	// public Integer visitErrorNode(ErrorNode e){
 	// 	System.out.println("Something went wrong.");
+	// 	return 0;
+	// }
+
+	// public Integer visitTerminal(TerminalNode t) {
+	// 	System.out.println("Visiting a terminal node.");
+	// 	return 0;
+	// }
+
+	// public Integer visitChildren(RuleNode r) {
+	// 	System.out.println("Visiting children.");
+	// 	return 0;
+	// }
+
+
+	// public Integer visit(ParseTree t) {
+	// 	System.out.println("Visiting a tree.");
+
+	// 	return 0;
 	// }
 }
